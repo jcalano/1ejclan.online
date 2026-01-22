@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1EJC LAN — Gaming Hub</title>
+
+  <!-- Basic SEO -->
+  <meta name="description" content="1EJC LAN is a gaming hub for ideas, uploads, builds, and community posts. Currently under construction." />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Social preview (optional — safe even without images) -->
+  <meta property="og:title" content="1EJC LAN — Gaming Hub" />
+  <meta property="og:description" content="A gaming hub for ideas, uploads, builds, and community posts. Under construction." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://1ejclan.com/" />
+
+  <style>
+    :root{
+      --bg: #0b0e14;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.03);
+      --border: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --subtle: rgba(255,255,255,.55);
+      --accent: #7c5cff;
+      --accent2: #00d4ff;
+      --good: #00e09d;
+      --warn: #ffd166;
+      --shadow: 0 16px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 10% 0%, rgba(124,92,255,.22), transparent 55%),
+        radial-gradient(900px 500px at 90% 10%, rgba(0,212,255,.15), transparent 55%),
+        radial-gradient(700px 400px at 50% 100%, rgba(0,224,157,.10), transparent 55%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .wrap{ max-width: 1100px; margin: 0 auto; padding: 32px 18px 64px; }
+
+    /* Top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .logo{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      font-weight: 800;
+      letter-spacing: .5px;
+      background:
+        radial-gradient(120% 120% at 10% 10%, rgba(255,255,255,.22), transparent 55%),
+        linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,212,255,.85));
+    }
+    .brand .title{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+    }
+    .brand .title strong{
+      font-size: 14px;
+      letter-spacing: .4px;
+    }
+    .brand .title span{
+      font-size: 12px;
+      color: var(--subtle);
+    }
+
+    .pill{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 12px;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .dot{
+      width: 9px; height: 9px;
+      background: var(--warn);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(255,209,102,.15);
+    }
+
+    /* Hero */
+    .hero{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      padding: 26px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(600px 300px at 30% 0%, rgba(124,92,255,.20), transparent 55%),
+        radial-gradient(500px 250px at 85% 35%, rgba(0,212,255,.18), transparent 60%);
+      pointer-events:none;
+      opacity: .9;
+    }
+
+    .hero-grid{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns: 1fr; }
+    }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 3.4vw, 48px);
+      letter-spacing: .2px;
+    }
+    .tagline{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 62ch;
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items:center;
+      margin-top: 10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 650;
+      font-size: 13px;
+      transition: transform .08s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+    }
+    .btn.primary{
+      border-color: rgba(124,92,255,.55);
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,212,255,.65));
+      box-shadow: 0 8px 30px rgba(124,92,255,.22);
+    }
+    .btn.primary:hover{ background: linear-gradient(135deg, rgba(124,92,255,1), rgba(0,212,255,.72)); }
+
+    .btn .icon{
+      width: 18px; height: 18px;
+      display:grid;
+      place-items:center;
+      font-family: var(--mono);
+      font-size: 12px;
+      opacity: .95;
+    }
+
+    /* Side card */
+    .sidecard{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: rgba(0,0,0,.20);
+    }
+
+    .sidecard h3{
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: var(--muted);
+      letter-spacing: .3px;
+    }
+
+    .stat{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .stat span{ color: var(--subtle); }
+    .stat strong{ font-family: var(--mono); }
+
+    /* Sections */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      padding: 16px;
+      box-shadow: 0 10px 34px rgba(0,0,0,.35);
+    }
+    .card h2{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .chip{
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .divider{
+      height: 1px;
+      background: rgba(255,255,255,.10);
+      margin: 22px 0;
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 30px;
+      color: var(--subtle);
+      font-size: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+
+    .smallnote{
+      font-family: var(--mono);
+      opacity:.9;
+    }
+
+    /* Tiny toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.75);
+      border: 1px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .15s ease, transform .15s ease;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">1E</div>
+        <div class="title">
+          <strong>1EJC LAN</strong>
+          <span>Gaming hub in the making</span>
+        </div>
+      </div>
+
+      <div class="pill" title="Status">
+        <span class="dot"></span>
+        In design mode
+      </div>
+    </div>
+
+    <section class="hero" aria-label="Hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Thoughts. Uploads. Builds. Chaos.</h1>
+          <p class="tagline">
+            Welcome to <strong>1EJC LAN</strong> — a place to share gaming ideas, strategies, screenshots, replays,
+            and community creations. Nothing is live yet… but it will be.
+          </p>
+
+          <div class="cta-row">
+            <!-- Replace this link with your actual Discord invite later -->
+            <a class="btn primary" href="#" onclick="notify('Discord link not set yet 👀'); return false;">
+              <span class="icon">⚡</span>
+              Join the Discord (soon)
+            </a>
+
+            <a class="btn" href="#devlog">
+              <span class="icon">⌁</span>
+              Read the Dev Log
+            </a>
+
+            <button class="btn" type="button" onclick="copyLink()">
+              <span class="icon">⎘</span>
+              Copy Site Link
+            </button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="grid">
+            <div class="card">
+              <h2>🧠 Ideas + Notes</h2>
+              <p>
+                Builds, tactics, “why this worked”, and “why this absolutely did not.”
+                Short posts, longer write-ups, and brain dumps.
+              </p>
+              <div class="chips">
+                <span class="chip">game notes</span>
+                <span class="chip">guides</span>
+                <span class="chip">gear</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2>📸 Uploads (planned)</h2>
+              <p>
+                Screenshots, clips, replays, custom mods, and user uploads — with basic moderation and tagging.
+              </p>
+              <div class="chips">
+                <span class="chip">screenshots</span>
+                <span class="chip">replays</span>
+                <span class="chip">mods</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2>🧱 Community Space</h2>
+              <p>
+                A central place for discussion, finding groups, sharing setups, and keeping useful stuff organized.
+              </p>
+              <div class="chips">
+                <span class="chip">discord</span>
+                <span class="chip">events</span>
+                <span class="chip">resources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="sidecard" aria-label="Status Card">
+          <h3>Roadmap status</h3>
+
+          <div class="stat">
+            <span>Phase 1</span>
+            <strong style="color: var(--warn);">Design</strong>
+          </div>
+          <div class="stat">
+            <span>Phase 2</span>
+            <strong style="color: var(--subtle);">Coming Soon</strong>
+          </div>
+          <div class="stat">
+            <span>Phase 3</span>
+            <strong style="color: var(--subtle);">Uploads</strong>
+          </div>
+
+          <div class="divider"></div>
+
+          <h3>Current goals</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.55;">
+            • Lock down the site structure<br />
+            • Pick the hosting path<br />
+            • Draft the upload rules<br />
+            • Build the first devlog posts
+          </p>
+
+          <div class="divider"></div>
+
+          <h3>Contact</h3>
+          <p style="margin:0; color: var(--muted); font-size:13px; line-height:1.55;">
+            Want in early? Send a note:<br />
+            <span class="smallnote">admin@1ejclan.com</span> (placeholder)
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="devlog" style="margin-top: 18px;">
+      <div class="grid">
+        <div class="card" style="grid-column: 1 / -1;">
+          <h2>📓 Dev Log</h2>
+          <p>
+            This will eventually become a simple running update list.
+            For now, it’s a placeholder so you can start writing while you design.
+          </p>
+
+          <div class="divider"></div>
+
+          <p class="smallnote" style="margin:0;">
+            2026-01-22 — Domain moved to Cloudflare DNS. Site skeleton created.
+          </p>
+          <p class="smallnote" style="margin:8px 0 0;">
+            Next — Decide: static site now, uploads later.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> 1EJC LAN • Built with plain HTML (for now)</div>
+      <div class="smallnote">Status: <span style="color: var(--warn);">Under Construction</span></div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // small toast helper
+    function notify(msg){
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.remove("show"), 1700);
+    }
+
+    // copy link
+    async function copyLink(){
+      try{
+        await navigator.clipboard.writeText(window.location.href);
+        notify("Link copied ✅");
+      } catch(e){
+        notify("Copy failed — your browser blocked it");
+      }
+    }
+  </script>
+</body>
+</html>
